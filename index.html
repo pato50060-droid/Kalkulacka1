@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC Kalkulačka</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        .pair {
+            color: #ff9900;
+            font-weight: bold;
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .label {
+            font-size: 18px;
+            font-weight: bold;
+            width: 45%;
+        }
+        .input-container {
+            width: 50%;
+        }
+        input {
+            width: 100%;
+            padding: 10px 15px; /* Pridané voľné miesto po bokoch, aby sa čísla nelepili na okraj */
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            background-color: #ff9900;
+            color: #ffffff;
+            text-align: right;
+            box-sizing: border-box;
+        }
+        .result-box {
+            background-color: #ff9900;
+            color: #ffffff;
+            width: 50%;
+            padding: 10px 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+            box-sizing: border-box;
+        }
+        .output-section {
+            margin-top: 30px;
+            text-align: right;
+        }
+        .btc-output {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .sats-output {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>Kalkulačka</h1>
+    <div class="pair">BTC/EUR</div>
+
+    <div class="row">
+        <div class="label">Aktuálny kurz</div>
+        <div class="input-container">
+            <input type="text" id="kurz" value="59 030 €" oninput="spracujVstup(this)" onblur="sformatujNaKoniec(this)">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="label">3%</div>
+        <div class="result-box" id="kurzSPercentami">60 801 €</div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="label">Nákup</div>
+        <div class="input-container">
+            <input type="text" id="nakup" value="100 €" oninput="spracujVstup(this)" onblur="sformatujNaKoniec(this)">
+        </div>
+    </div>
+
+    <div class="output-section">
+        <div class="btc-output" id="vysledokBTC">0,001644712 BTC</div>
+        <div class="sats-output" id="vysledokSATS">164 471 SATS</div>
+    </div>
+</div>
+
+<script>
+    // Funkcia, ktorá očistí text od euroznakov a medzier, aby sme s ním vedeli počítať
+    function ziskajCislo(text) {
+        let ocistene = text.replace(/[^0-9]/g, '');
+        return parseFloat(ocistene) || 0;
+    }
+
+    // Funkcia spustená počas písania (vymaže € a nechá len čísla s medzerami)
+    function spracujVstup(element) {
+        let cislo = ziskajCislo(element.value);
+        if (cislo === 0) {
+            element.value = '';
+        } else {
+            element.value = cislo.toLocaleString('sk-SK');
+        }
+        prepocitaj();
+    }
+
+    // Funkcia spustená, keď klikneš mimo políčka (vráti na koniec znak €)
+    function sformatujNaKoniec(element) {
+        let cislo = ziskajCislo(element.value);
+        if (cislo > 0) {
+            element.value = cislo.toLocaleString('sk-SK') + ' €';
+        } else {
+            element.value = '0 €';
+        }
+    }
+
+    function prepocitaj() {
+        // Získame čisté čísla z upravených textových políčok
+        const kurz = ziskajCislo(document.getElementById('kurz').value);
+        const nakup = ziskajCislo(document.getElementById('nakup').value);
+
+        // 1. Výpočet: Aktuálny kurz + 3%
+        const kurzSPercentami = kurz + (kurz * 0.03);
+        
+        // Zobrazenie v druhom riadku s medzerou a €
+        document.getElementById('kurzSPercentami').innerText = 
+            Math.round(kurzSPercentami).toLocaleString('sk-SK') + ' €';
+
+        if (kurzSPercentami === 0) {
+            document.getElementById('vysledokBTC').innerText = '0,000000000 BTC';
+            document.getElementById('vysledokSATS').innerText = '0 SATS';
+            return;
+        }
+
+        // 2. Výpočet: Nákup / (Kurz + 3%)
+        const btc = nakup / kurzSPercentami;
+        
+        // 3. Výpočet: BTC * 100 000 000 (SATS)
+        const sats = Math.round(btc * 100000000);
+
+        // Zobrazenie výsledkov
+        document.getElementById('vysledokBTC').innerText = 
+            btc.toFixed(9).replace('.', ',') + ' BTC';
+        
+        document.getElementById('vysledokSATS').innerText = 
+            sats.toLocaleString('sk-SK') + ' SATS';
+    }
+</script>
+
+</body>
+</html>
