@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BTC Kalkulačka</title>
     
-    <!-- TENTO KÓD VYTVORÍ UNIKÁTNU IKONU: KOMBINÁCIA BITCOINU A KALKULAČKY -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23f7931a'/%3E%3Cpath d='M32 24h36v12H32z' fill='%23fff' opacity='.2'/%3E%3Cpath d='M60 41.5c-2.5-.6-5.3-.1-7 1.5s-2.1 3.8-1.5 6.2c.3.9.6 1.7 1.1 2.5l-6.3 1.7c-.9-.6-2-.9-3.2-.9-1.9 0-3.6.9-4.2 2.1l-3.4 10c-.4 1.1.2 2.3 1.3 2.7.2.1.5.1.7.1 1 0 1.9-.7 2.1-1.7l3.4-10c.5-.1 1.1-.3 1.6-.6l6.3-1.7-1.7 5.2-6.3 1.7c-.7.2-1.2.7-1.4 1.4-.2.7.1 1.4.6 1.9l2.7 2c.5.4 1.2.5 1.8.3l6.3-1.7-2.5 7.4c-.4 1.1.2 2.3 1.3 2.7.2.1.5.1.7.1 1 0 1.9-.7 2.1-1.7l2.4-7.2c2.1.6 4.2 1 6.3 1.3l-2.5 7.4c-.4 1.1.2 2.3 1.3 2.7.2.1.5.1.7.1 1 0 1.9-.7 2.1-1.7l2.4-7.2c3-.2 5.9-.9 8.6-2.1 4.9-2.1 7.4-6.4 6.6-12.1-.6-3.8-3.1-6.4-6.6-7.8 2.6-1.5 4.3-4.2 4-8.1-.3-4.9-3.8-8-9.2-8.9zm-4.4 10c2.6 0 4.6 1.8 4.9 4.4s-1.2 4.9-3.8 5.1l-5.2 1.4 2.5-7.5 1.6-3.4zm-2.8 13.8l5.4-1.5c2.9-.2 5 1.9 5.2 4.8-.3 3.1-2.5 4.9-5.4 5l-5.5 1.5 2.5-9.8z' fill='%23fff'/%3E%3Crect x='32' y='20' width='36' height='48' rx='4' fill='none' stroke='%23fff' stroke-width='4'/%3E%3Ccircle cx='39' cy='56' r='2.5' fill='%23fff'/%3E%3Ccircle cx='39' cy='62' r='2.5' fill='%23fff'/%3E%3Ccircle cx='46' cy='62' r='2.5' fill='%23fff'/%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪙</text></svg>">
     
     <style>
         body {
@@ -93,7 +92,6 @@
     <h1>Kalkulačka</h1>
     <div class="pair">BTC/EUR</div>
 
-    <!-- 1. RIADOK: Aktuálny kurz -->
     <div class="row">
         <div class="label">Aktuálny kurz</div>
         <div class="input-container">
@@ -101,7 +99,6 @@
         </div>
     </div>
 
-    <!-- 2. RIADOK: Pripočítané 3% -->
     <div class="row">
         <div class="label">3%</div>
         <div class="result-box" id="kurzSPercentami">60 801 €</div>
@@ -109,7 +106,6 @@
 
     <br>
 
-    <!-- 3. RIADOK: Nákup -->
     <div class="row">
         <div class="label">Nákup</div>
         <div class="input-container">
@@ -117,13 +113,11 @@
         </div>
     </div>
 
-    <!-- 4. RIADOK: Výsledok v BTC -->
     <div class="row">
         <div class="label btc-text">BTC</div>
         <div class="output-box btc-text" id="vysledokBTC">0,001644712 BTC</div>
     </div>
 
-    <!-- 5. RIADOK: Výsledok v SATS -->
     <div class="row">
         <div class="label sats-text">SATS</div>
         <div class="output-box sats-text" id="vysledokSATS">164 471 SATS</div>
