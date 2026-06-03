@@ -61,20 +61,20 @@
             text-align: right;
             box-sizing: border-box;
         }
-        .result-text {
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: normal;
-            text-align: right;
-            margin-top: -10px;
-            margin-bottom: 15px;
-            padding-right: 15px;
-            opacity: 0.8;
-        }
         .output-box {
             color: #ffffff;
             width: 60%;
             padding: 10px 15px;
+            font-weight: bold;
+            text-align: right;
+            box-sizing: border-box;
+        }
+        /* ŠTÝL PRE NOVÝ KURZ - VEĽKÝ A ČITATEĽNÝ */
+        .new-rate-box {
+            color: #ffffff;
+            width: 60%;
+            padding: 10px 15px;
+            font-size: 18px;
             font-weight: bold;
             text-align: right;
             box-sizing: border-box;
@@ -101,14 +101,19 @@
         </div>
     </div>
 
-    <!-- 2. RIADOK: Nastavenie percent (MENITEĽNÉ) -->
+    <!-- 2. RIADOK: Nastavenie percent -->
     <div class="row">
         <div class="label">Percentá</div>
         <div class="input-container">
             <input type="text" id="percenta" value="3 %" oninput="spracujVstupPercenta(this)" onblur="sformatujNaKoniecPercenta(this)">
         </div>
     </div>
-    <div class="result-text">Nový kurz: <span id="kurzSPercentami" style="font-weight: bold;">60 801 €</span></div>
+
+    <!-- NOVÝ UPRAVENÝ RIADOK: Nový kurz s veľkým písmom -->
+    <div class="row" style="margin-bottom: 25px;">
+        <div class="label" style="color: #aaaaaa; font-size: 16px;">Nový kurz</div>
+        <div class="new-rate-box" id="kurzSPercentami">60 801 €</div>
+    </div>
 
     <!-- 3. RIADOK: Nákup -->
     <div class="row">
