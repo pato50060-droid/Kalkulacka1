@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BTC Kalkulačka</title>
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪙</text></svg>">
+    <!-- IKONA: VEĽKÉ ČIERNE "B" NA ORANŽOVOM POZADÍ -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23f7931a'/%3E%3Ctext x='50%25' y='55%25' font-family='Arial Black, Arial, sans-serif' font-size='60' font-weight='900' fill='%23000000' dom-dominant-baseline='central' text-anchor='middle' y='72'%3EB%3C/text%3E%3C/svg%3E">
     
     <style>
         body {
@@ -60,15 +61,15 @@
             text-align: right;
             box-sizing: border-box;
         }
-        .result-box {
-            background-color: #ff9900;
+        .result-text {
             color: #ffffff;
-            width: 60%;
-            padding: 10px 15px;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 14px;
+            font-weight: normal;
             text-align: right;
-            box-sizing: border-box;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            padding-right: 15px;
+            opacity: 0.8;
         }
         .output-box {
             color: #ffffff;
@@ -92,32 +93,38 @@
     <h1>Kalkulačka</h1>
     <div class="pair">BTC/EUR</div>
 
+    <!-- 1. RIADOK: Aktuálny kurz -->
     <div class="row">
         <div class="label">Aktuálny kurz</div>
         <div class="input-container">
-            <input type="text" id="kurz" value="59 030 €" oninput="spracujVstup(this)" onblur="sformatujNaKoniec(this)">
+            <input type="text" id="kurz" value="59 030 €" oninput="spracujVstupCena(this)" onblur="sformatujNaKoniecCena(this)">
         </div>
     </div>
 
+    <!-- 2. RIADOK: Nastavenie percent (MENITEĽNÉ) -->
     <div class="row">
-        <div class="label">3%</div>
-        <div class="result-box" id="kurzSPercentami">60 801 €</div>
+        <div class="label">Percentá</div>
+        <div class="input-container">
+            <input type="text" id="percenta" value="3 %" oninput="spracujVstupPercenta(this)" onblur="sformatujNaKoniecPercenta(this)">
+        </div>
     </div>
+    <div class="result-text">Nový kurz: <span id="kurzSPercentami" style="font-weight: bold;">60 801 €</span></div>
 
-    <br>
-
+    <!-- 3. RIADOK: Nákup -->
     <div class="row">
         <div class="label">Nákup</div>
         <div class="input-container">
-            <input type="text" id="nakup" value="100 €" oninput="spracujVstup(this)" onblur="sformatujNaKoniec(this)">
+            <input type="text" id="nakup" value="100 €" oninput="spracujVstupCena(this)" onblur="sformatujNaKoniecCena(this)">
         </div>
     </div>
 
+    <!-- 4. RIADOK: Výsledok v BTC -->
     <div class="row">
         <div class="label btc-text">BTC</div>
         <div class="output-box btc-text" id="vysledokBTC">0,001644712 BTC</div>
     </div>
 
+    <!-- 5. RIADOK: Výsledok v SATS -->
     <div class="row">
         <div class="label sats-text">SATS</div>
         <div class="output-box sats-text" id="vysledokSATS">164 471 SATS</div>
@@ -130,7 +137,7 @@
         return parseFloat(ocistene) || 0;
     }
 
-    function spracujVstup(element) {
+    function spracujVstupCena(element) {
         let cislo = ziskajCislo(element.value);
         if (cislo === 0) {
             element.value = '';
@@ -140,7 +147,7 @@
         prepocitaj();
     }
 
-    function sformatujNaKoniec(element) {
+    function sformatujNaKoniecCena(element) {
         let cislo = ziskajCislo(element.value);
         if (cislo > 0) {
             element.value = cislo.toLocaleString('sk-SK') + ' €';
@@ -149,11 +156,27 @@
         }
     }
 
+    function spracujVstupPercenta(element) {
+        let cislo = ziskajCislo(element.value);
+        if (cislo === 0) {
+            element.value = '';
+        } else {
+            element.value = cislo;
+        }
+        prepocitaj();
+    }
+
+    function sformatujNaKoniecPercenta(element) {
+        let cislo = ziskajCislo(element.value);
+        element.value = cislo + ' %';
+    }
+
     function prepocitaj() {
         const kurz = ziskajCislo(document.getElementById('kurz').value);
+        const percenta = ziskajCislo(document.getElementById('percenta').value);
         const nakup = ziskajCislo(document.getElementById('nakup').value);
 
-        const kurzSPercentami = kurz + (kurz * 0.03);
+        const kurzSPercentami = kurz + (kurz * (percenta / 100));
         
         document.getElementById('kurzSPercentami').innerText = 
             Math.round(kurzSPercentami).toLocaleString('sk-SK') + ' €';
