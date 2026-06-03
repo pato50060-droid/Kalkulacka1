@@ -1,0 +1,16 @@
+{
+  "name": "BTC Kalkulačka",
+  "short_name": "Kalkulačka",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#f7931a",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23f7931a'/%3E%3Ctext x='50%25' y='55%25' font-family='Arial Black, Arial, sans-serif' font-size='60' font-weight='900' fill='%23000000' dom-dominant-baseline='central' text-anchor='middle' y='72'%3EB%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
